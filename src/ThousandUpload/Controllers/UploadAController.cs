@@ -11,23 +11,28 @@ using System.Text;
 
 namespace ThousandUpload.Controllers {
 
-    [Route("api/[controller]/[action]")]
-    public class UploadController : ControllerBase {
-
+    public static class TempFile {
         private static readonly string tempPath =
             Path.Combine("/tmp/1000-upload", DateTime.Now.ToString("yyyy/MM/dd"));
 
-        static UploadController() {
+        static TempFile() {
             if (!Directory.Exists(tempPath)) {
                 Directory.CreateDirectory(tempPath);
             }
         }
+        public static string GetTempPath() => tempPath;
+    }
+
+    [Route("api/[controller]/[action]")]
+    public class UploadAController : ControllerBase {
+
+        private static readonly string tempPath = TempFile.GetTempPath();
 
         [HttpGet]
         public string Hi() => "Hello, world!";
 
         [HttpPost]
-        public async Task<IActionResult> UploadA(List<IFormFile> files) {
+        public async Task<IActionResult> Upload(List<IFormFile> files) {
             var filePath = Path.Combine(tempPath, Guid.NewGuid().ToString("N")) + ".pdf";
             var size = files.Sum(x => x.Length);
 

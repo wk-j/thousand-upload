@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-var url = "http://localhost:4000/api/upload/uploadA";
+var url = "http://localhost:4000/api/uploadA/upload";
 var bytes = File.ReadAllBytes("scripts/aspnetcoremvc.pdf");
 
 async Task<HttpStatusCode> StartUpload(int size) {

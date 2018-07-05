@@ -17,6 +17,9 @@ namespace ThousandUpload {
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseUrls("http://*:4000")
+                .ConfigureLogging(builder => {
+                    builder.ClearProviders();
+                })
                 .UseStartup<Startup>();
     }
 }

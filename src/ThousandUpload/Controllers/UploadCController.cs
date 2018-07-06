@@ -5,11 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ThousandUpload.Controllers {
 
-    class UploadCController : ControllerBase {
+    [Route("api/[controller]/[action]")]
+    public class UploadCController : ControllerBase {
         private static readonly string tempPath = TempFile.GetTempPath();
 
         [HttpPost]
-        public async Task<dynamic> Classify2() {
+        public async Task<dynamic> Upload() {
             var files = this.Request.Form.Files;
             foreach (var file in files) {
                 var dest = Path.Combine(tempPath, Guid.NewGuid().ToString("N") + "-class.pdf");

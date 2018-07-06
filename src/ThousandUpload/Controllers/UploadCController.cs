@@ -1,0 +1,23 @@
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ThousandUpload.Controllers {
+
+    class UploadCController : ControllerBase {
+        private static readonly string tempPath = TempFile.GetTempPath();
+
+        [HttpPost]
+        public async Task<dynamic> Classify2() {
+            var files = this.Request.Form.Files;
+            foreach (var file in files) {
+                var dest = Path.Combine(tempPath, Guid.NewGuid().ToString("N") + "-class.pdf");
+                using (var stream = new FileStream(dest, FileMode.Create, FileAccess.Write)) {
+                    await file.CopyToAsync(stream);
+                }
+            }
+            return new { };
+        }
+    }
+}

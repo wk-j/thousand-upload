@@ -8,6 +8,7 @@ using Microsoft.Net.Http.Headers;
 using System.Text;
 
 namespace ThousandUpload.Controllers {
+    [Route("api/[controller]/[action]")]
     public class UploadBController : ControllerBase {
         string tempPath = TempFile.GetTempPath();
 
